@@ -43,7 +43,7 @@ function addTodo(title, completed) {
   div.appendChild(deleteBtn);
   deleteBtn.style.display = "none";
   doneBtn.style.display = "none";
-  todoCtn.prepend(span);
+  todoCtn.prepend(div);
   //define buttons event...
   div.onmouseout = () => {
     deleteBtn.style.display = "none";
