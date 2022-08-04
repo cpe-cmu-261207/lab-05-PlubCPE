@@ -55,6 +55,8 @@ function addTodo(title, completed) {
   };
   deleteBtn.onclick = () => {
     div.remove();
+
+    saveTodo();
   };
 
   doneBtn.onclick = () => {
@@ -64,8 +66,6 @@ function addTodo(title, completed) {
       span.style.textDecoration = "line-through";
     }
   };
-
-  todoCtn.appendChild(div);
 }
 
 function saveTodo() {
@@ -73,12 +73,23 @@ function saveTodo() {
   for (const todoDiv of todoCtn.children) {
     //your code here
     const todoobj = {};
+    todoobj.title = todoDiv.children[0].innerText;
+    todoobj.completed = todoDiv.style.textDecoration === "line-through";
+    data.push(todoobj);
   }
   //your code here
+  const json = JSON.stringify(data);
+  localStorage.setItem("todo-container", json);
 }
 
 function loadTodo() {
   //your code here
+  const dataStr = localStorage.getItem("todo-container");
+  const data = JSON.parse(dataStr); //array of objects
+
+  for (const todoobj of data.reverse()) {
+    addTodo(todoobj.title, todoobj.completed);
+  }
 }
 
 loadTodo();
